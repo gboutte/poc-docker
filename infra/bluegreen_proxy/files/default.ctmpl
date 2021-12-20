@@ -1,0 +1,50 @@
+{{$blue := env "BLUE_NAME"}}
+{{$green := env "GREEN_NAME"}}
+{{$live := file "/var/live"}}
+worker_processes  1;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+	upstream blue {
+	    server app;
+	}
+
+	upstream green {
+	    server app;
+	}
+
+	server {
+	    listen 80 default;
+
+	    location / {
+	    	{{if eq $live "blue"}}
+            add_header X-env blue;
+            proxy_set_header X-env blue;
+	        proxy_pass http://blue;
+	    	{{else}}
+            add_header X-env green;
+            proxy_set_header X-env green;
+	        proxy_pass http://green;
+	    	{{end}}
+	    }
+	}
+
+	server {
+	    listen 8080;
+
+	    location / {
+	    	{{if eq $live "blue"}}
+            add_header X-env green;
+            proxy_set_header X-env green;
+	        proxy_pass http://green;
+	    	{{else}}
+            add_header X-env blue;
+            proxy_set_header X-env blue;
+	        proxy_pass http://blue;
+	    	{{end}}
+	    }
+	}
+}

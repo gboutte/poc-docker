@@ -10,8 +10,8 @@ services:
     volumes:
       - ${APP_FOLDER}:/var/www
 
-  nginx:
-    container_name: "nginx"
+  app:
+    container_name: "app_nginx"
     build:
       context: ./nginx
     volumes:
@@ -21,4 +21,19 @@ services:
     depends_on:
       - php
     ports:
-      - "${NGINX_PORT}:80"
+      - "${NGINX_APP_PORT}:80"
+
+  bg:
+    container_name: bg
+    build:
+      context: ./bluegreen_proxy
+    ports:
+      - "${NGINX_PROD_PORT}:80"
+      - "${NGINX_BETA_PORT}:8080"
+    environment:
+      - CONSUL_URL=127.0.0.1:8500
+      - BLUE_NAME=blue
+      - GREEN_NAME=green
+      - LIVE=blue
+    depends_on:
+      - app
