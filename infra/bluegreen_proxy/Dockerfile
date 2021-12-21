@@ -1,5 +1,6 @@
 FROM nginx:1.20.2-alpine
 
+COPY .htpasswd /etc/nginx/
 RUN apk add --no-cache --virtual unzip
 COPY consul-template_0.27.2_linux_amd64.zip /usr/bin/
 RUN unzip /usr/bin/consul-template_0.27.2_linux_amd64.zip -d /usr/local/bin

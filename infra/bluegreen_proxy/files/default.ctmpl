@@ -9,24 +9,21 @@ events {
 
 http {
 	upstream blue {
-	    server app;
+	    server blue_app;
 	}
 
 	upstream green {
-	    server app;
+	    server green_app;
 	}
 
 	server {
 	    listen 80 default;
 
 	    location / {
+            proxy_set_header X-env-prod prod;
 	    	{{if eq $live "blue"}}
-            add_header X-env blue;
-            proxy_set_header X-env blue;
 	        proxy_pass http://blue;
 	    	{{else}}
-            add_header X-env green;
-            proxy_set_header X-env green;
 	        proxy_pass http://green;
 	    	{{end}}
 	    }
@@ -36,15 +33,15 @@ http {
 	    listen 8080;
 
 	    location / {
+            proxy_set_header X-env-prod beta;
 	    	{{if eq $live "blue"}}
-            add_header X-env green;
-            proxy_set_header X-env green;
 	        proxy_pass http://green;
 	    	{{else}}
-            add_header X-env blue;
-            proxy_set_header X-env blue;
 	        proxy_pass http://blue;
 	    	{{end}}
+
+            auth_basic "Restricted Content";
+            auth_basic_user_file /etc/nginx/.htpasswd;
 	    }
 	}
 }
