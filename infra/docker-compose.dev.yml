@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+
+#  BLUE PART
+  blue_php:
+    volumes:
+      - ${APP_FOLDER}:/var/www
+  blue_app:
+    volumes:
+      - ${APP_FOLDER}:/var/www
+
+# GREEN PART
+
+  green_php:
+    volumes:
+      - ${APP_FOLDER}:/var/www
+  green_app:
+    volumes:
+      - ${APP_FOLDER}:/var/www
+
