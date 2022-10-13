@@ -4,8 +4,8 @@ RUN apk add --no-cache tzdata
 ENV TZ=Europe/Paris
 
 RUN apk add --no-cache --virtual unzip
-COPY ./infra/nginx/consul-template_0.27.2_linux_amd64.zip /usr/bin/
-RUN unzip /usr/bin/consul-template_0.27.2_linux_amd64.zip -d /usr/local/bin
+COPY ./infra/nginx/consul-template_0.29.5_linux_amd64.zip /usr/bin/
+RUN unzip /usr/bin/consul-template_0.29.5_linux_amd64.zip -d /usr/local/bin
 
 
 COPY ./infra/nginx/files/default.ctmpl /templates/

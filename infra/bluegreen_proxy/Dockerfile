@@ -5,8 +5,8 @@ ENV TZ=Europe/Paris
 
 COPY .htpasswd /etc/nginx/
 RUN apk add --no-cache --virtual unzip
-COPY consul-template_0.27.2_linux_amd64.zip /usr/bin/
-RUN unzip /usr/bin/consul-template_0.27.2_linux_amd64.zip -d /usr/local/bin
+COPY consul-template_0.29.5_linux_amd64.zip /usr/bin/
+RUN unzip /usr/bin/consul-template_0.29.5_linux_amd64.zip -d /usr/local/bin
 
 COPY files/scripts/* /bin/
 RUN chmod +x /bin/current-live /bin/switch /bin/start.sh
