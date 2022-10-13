@@ -1,6 +1,6 @@
 #!/bin/sh
 
-live=$(docker exec bg current-live)
+live=$(docker exec loadbalancer current-live)
 if [ $live = "blue" ]
 then
   beta="green"
@@ -12,7 +12,7 @@ echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   echo "Switching $beta to production."
-  docker exec bg switch $beta
+  docker exec loadbalancer switch $beta
 else
   echo "Aborting."
 fi

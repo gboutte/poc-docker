@@ -1,4 +1,7 @@
-FROM nginx:1.20.2-alpine
+FROM nginx:1.23.1-alpine
+
+RUN apk add --no-cache tzdata
+ENV TZ=Europe/Paris
 
 COPY .htpasswd /etc/nginx/
 RUN apk add --no-cache --virtual unzip

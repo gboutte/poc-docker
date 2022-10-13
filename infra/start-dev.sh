@@ -5,7 +5,7 @@ echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   echo "Starting..."
-  docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+  docker compose -p appbg -f docker-compose.yml -f docker-compose.dev.yml up --build
 else
   echo "Aborting."
 fi

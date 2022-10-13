@@ -1,9 +1,10 @@
 #!/bin/sh
+echo "Stating nginx.."
 nginx -g 'daemon off;' &
 echo -n $LIVE > /var/live
 i=$(pgrep nginx | wc -l)
 echo $i
-while [ $i -lt 3 ]
+while [ $i -lt 2 ]
 do
   i=$(pgrep nginx | wc -l)
   echo "Waiting for nginx.. PID: ${i}";

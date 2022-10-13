@@ -45,8 +45,8 @@ services:
       - green_php
 
 # LOAD BALANCER
-  bg:
-    container_name: bg
+  loadbalancer:
+    container_name: loadbalancer
     build:
       context: ./bluegreen_proxy
     volumes:
